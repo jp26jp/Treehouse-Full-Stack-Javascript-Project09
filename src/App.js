@@ -1,4 +1,5 @@
 import React, {Component} from "react"
+import Axios              from "axios"
 import "./App.css"
 import Header             from "./Header"
 import MainContent        from "./MainContent"
@@ -9,55 +10,40 @@ class App extends Component {
         super(props)
         this.state = {
             value     : "",
+            photos    : [],
             categories: [
                 {title: "cat"},
                 {title: "dog"},
                 {title: "mouse"},
             ],
-            photos    : [
-                {
-                    url  : "https://farm5.staticflickr.com/4334/37032996241_4c16a9b530.jpg",
-                    title: "Bob",
-                },
-                {
-                    url  : "https://farm5.staticflickr.com/4342/36338751244_316b6ee54b.jpg",
-                    title: "Glen",
-                },
-                {
-                    url  : "https://farm5.staticflickr.com/4343/37175099045_0d3a249629.jpg",
-                    title: "Steve",
-                },
-                {
-                    url  : "https://farm5.staticflickr.com/4425/36337012384_ba3365621e.jpg",
-                    title: "Bob",
-                },
-            ],
         }
-        
-        this.handleInputFilter = this.handleInputFilter.bind(this)
-        this.handleSubmitFilter = this.handleSubmitFilter.bind(this)
     }
     
-    handleInputFilter = event => {
-        this.setState({value: event.target.value})
+    componentDidMount() {
+        this.performSearch()
     }
     
-    handleSubmitFilter = event => {
-        alert("A name was submitted: " + this.state.value)
-        event.preventDefault()
+    performSearch = (query = "cats") => {
+        const key = "e72ad237457be60deb5413722be2799e",
+              url = `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${key}&text=${query}&format=json&nojsoncallback=1`
+        Axios.get(url)
+             .then(response => {
+                 this.setState({photos: response.data.photos.photo})
+             })
+             .catch(error => {
+                 console.log("Error fetching and parsing data", error)
+             })
     }
     
     render() {
         return (
             <div className="container">
                 <Header
-                    filterValue={this.state.value}
-                    handleSubmitFilter={this.handleSubmitFilter}
-                    handleInputFilter={this.handleInputFilter}
+                    onSearch={this.performSearch}
                     categories={this.state.categories}
                 />
                 <MainContent
-                    photos={this.state.photos}/>
+                    data={this.state.photos}/>
             </div>
         )
     }

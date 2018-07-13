@@ -6,14 +6,16 @@ const Nav = props =>
     <nav className="main-nav">
         <ul>
             {props.categories
-                  .map(category => <Category
-                      label={category.title}/>)
+                  .map((category, index) =>
+                           <Category
+                               key={index}
+                               label={category.title}/>)
             }
         </ul>
     </nav>
 
 Nav.propTypes = {
-    categories: PropTypes.array.isRequired
+    categories: PropTypes.array.isRequired,
 }
 
 export default Nav

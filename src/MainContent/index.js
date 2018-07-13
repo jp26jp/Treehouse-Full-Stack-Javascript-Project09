@@ -4,11 +4,10 @@ import PropTypes from "prop-types"
 import PhotoList from "./PhotoList"
 
 const MainContent = props =>
-    <PhotoList photos={props.photos}/>
+    <PhotoList data={props.data}/>
 
 MainContent.propTypes = {
-    photos: PropTypes.array.isRequired,
-    
+    data: PropTypes.array.isRequired,
 }
 
 export default MainContent

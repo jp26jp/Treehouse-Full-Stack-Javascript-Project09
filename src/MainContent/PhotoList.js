@@ -6,9 +6,15 @@ const PhotoList = props =>
     <div className="photo-container">
         <h2>Results</h2>
         <ul>
-            {props.photos
-                  .map(photo => <Photo url={photo.url} title={photo.title}/>)
-            }
+            {props.data.map(photo =>
+                <Photo
+                    key={photo.id}
+                    id={photo.id}
+                    farm={photo.farm}
+                    server={photo.server}
+                    secret={photo.secret}
+                    title={photo.title}/>
+            )}
             <li className="not-found">
                 <h3>No Results Found</h3>
                 <p>You search did not return any results. Please try again.</p>
@@ -17,7 +23,7 @@ const PhotoList = props =>
     </div>
 
 PhotoList.propTypes = {
-    photos: PropTypes.array.isRequired,
+    data: PropTypes.array.isRequired,
 }
 
 export default PhotoList

@@ -1,15 +1,21 @@
-import React from "react"
+import React     from "react"
 import PropTypes from "prop-types"
 
-const Photo = props =>
-    <li>
-        <img src={props.url} alt=""/>
-        <div>{props.title}</div>
-    </li>
+const Photo = props => {
+    const url = `https://farm${props.farm}.staticflickr.com/${props.server}/${props.id}_${props.secret}.jpg`
+    return(
+        <li>
+            <img src={url} alt=""/>
+        </li>
+    )
+}
 
 Photo.propTypes = {
-    title: PropTypes.string.isRequired,
-    url: PropTypes.string.isRequired,
+    id    : PropTypes.string.isRequired,
+    farm  : PropTypes.number.isRequired,
+    server: PropTypes.string.isRequired,
+    secret: PropTypes.string.isRequired,
+    title : PropTypes.string.isRequired,
 }
 
 export default Photo
