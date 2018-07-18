@@ -1,6 +1,7 @@
 import React, {Component} from "react"
+import {withRouter}       from "react-router-dom"
 
-export default class Form extends Component {
+class Form extends Component {
     
     state = {
         searchText: "",
@@ -12,9 +13,13 @@ export default class Form extends Component {
     
     handleSubmitFilter = event => {
         event.preventDefault()
+        let query = this.query.value
+        console.log(query)
+        let path = `/${query}`
+        this.props.history.push(path)
         this.props.onSearch(this.query.value)
         event.currentTarget.reset()
-        alert("A name was submitted: " + this.state.searchText)
+        // alert("A name was submitted: " + this.state.searchText)
     }
     
     render() {
@@ -36,3 +41,5 @@ export default class Form extends Component {
         )
     }
 }
+
+export default withRouter(Form)

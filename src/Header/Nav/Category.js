@@ -1,9 +1,10 @@
 import React from "react"
 import PropTypes from "prop-types"
+import { NavLink } from "react-router-dom"
 
 const Category = props =>
     <li>
-        <button>{props.label}</button>
+        <NavLink to={props.label}>{props.label}</NavLink>
     </li>
 
 Category.propTypes = {

@@ -5,12 +5,7 @@ import Category  from "./Category"
 const Nav = props =>
     <nav className="main-nav">
         <ul>
-            {props.categories
-                  .map((category, index) =>
-                           <Category
-                               key={index}
-                               label={category.title}/>)
-            }
+            {props.categories.map((category, index) => <Category key={index} label={category.title}/>)}
         </ul>
     </nav>
 
