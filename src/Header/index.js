@@ -2,7 +2,7 @@ import React     from "react"
 import PropTypes from "prop-types"
 
 import Form  from "./Form"
-import Nav from "./Nav/"
+import Nav from "./Nav"
 
 const Header = props =>
     <header>

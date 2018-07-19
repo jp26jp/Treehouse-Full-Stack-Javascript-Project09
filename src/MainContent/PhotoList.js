@@ -26,7 +26,7 @@ const PhotoList = props => {
     
     return (
         <div className="photo-container">
-            <h2>Results</h2>
+            <h2>Photos of {props.query}</h2>
             <ul>
                 {photos}
             </ul>
@@ -36,6 +36,7 @@ const PhotoList = props => {
 
 PhotoList.propTypes = {
     data: PropTypes.array.isRequired,
+    query: PropTypes.string.isRequired,
 }
 
 export default PhotoList

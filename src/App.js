@@ -1,21 +1,23 @@
-import React, {Component}     from "react"
-import {BrowserRouter, Route} from "react-router-dom"
-import Axios                  from "axios"
+import React, {Component}             from "react"
+import {BrowserRouter, Route, Switch} from "react-router-dom"
+import Axios                          from "axios"
 import "./App.css"
-import Header                 from "./Header"
-import MainContent            from "./MainContent"
-import api                    from "./api"
+import Header                         from "./Header"
+import MainContent                    from "./MainContent"
+import config                         from "./config"
 
-class App extends Component {
+export default class App extends Component {
     
     constructor(props) {
         super(props)
         this.state = {
+            query     : "Cats",
+            loading   : true,
             photos    : [],
             categories: [
-                {title: "cat"},
-                {title: "dog"},
-                {title: "mouse"},
+                {title: "Cats"},
+                {title: "Dogs"},
+                {title: "Computers"},
             ],
         }
     }
@@ -25,11 +27,15 @@ class App extends Component {
     }
     
     performSearch = (query = "cats") => {
-        const key = api,
+        const key = config,
               url = `https://api.flickr.com/services/rest/?method=flickr.photos.search&api_key=${key}&text=${query}&format=json&nojsoncallback=1`
         Axios.get(url)
              .then(response => {
-                 this.setState({photos: response.data.photos.photo})
+                 this.setState({
+                                   query  : query,
+                                   photos : response.data.photos.photo,
+                                   loading: false,
+                               })
              })
              .catch(error => {
                  console.log("Error fetching and parsing data", error)
@@ -41,15 +47,20 @@ class App extends Component {
             <BrowserRouter>
                 <div className="container">
                     <Header onSearch={this.performSearch} categories={this.state.categories}/>
-                    <Route exact path="/" render={() => <MainContent data={this.state.photos}/>}/>
-                    <Route path="/:query" render={({match}) => {
-                        this.performSearch(match.params.query)
-                        return <MainContent data={this.state.photos}/>
-                    }}/>
+                    {
+                        (this.state.loading)
+                        ? <p>Loading...</p> :
+                        <Switch>
+                            <Route exact path="/" render={() => <MainContent data={this.state.photos} query={this.state.query}/>}/>
+                            <Route path="/:query" render={({match}) => {
+                                this.performSearch(match.params.query)
+                                return <MainContent data={this.state.photos} query={this.state.query}/>
+                            }}/>
+                        </Switch>
+                        
+                    }
                 </div>
             </BrowserRouter>
         )
     }
 }
-
-export default App

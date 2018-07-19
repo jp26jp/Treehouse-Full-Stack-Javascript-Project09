@@ -9,7 +9,7 @@ In this project, you'll build an image gallery using React and the Flickr API. A
 
 ## Build your app components
 - Most components should be stateless functional components that focus on the UI rather than behavior. Here's some examples of the sorts of components you’ll need:
-    - A Container component that takes in a keyword and api key as props, and fetches the photos and other required information from the API
+    - A Container component that takes in a keyword and config key as props, and fetches the photos and other required information from the API
     - A Header component, maybe for storing the nav and search
     - A Navigation menu component
     - A Form component for the search
@@ -42,7 +42,7 @@ export default apiKey;
 ## Requesting the data
 - Fetch the data from the Flickr API.
 - Make sure data fetching and state is managed by a higher-level “container” component.
-- It is recommended the you use the following link for help with this part of the project, https://www.flickr.com/services/api/explore/flickr.photos.search.
+- It is recommended the you use the following link for help with this part of the project, https://www.flickr.com/services/config/explore/flickr.photos.search.
     - Enter a tag to search for, such as “sunsets.”
     - You may also want to limit the number of results using the per_page argument.
     - Choose JSON as the output, then “Do not sign call.”
