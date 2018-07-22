@@ -15,7 +15,7 @@ class Form extends Component {
         event.preventDefault()
         let query = this.query.value
         console.log(query)
-        let path = `/${query}`
+        let path = `/search/${query}`
         this.props.history.push(path)
         this.props.onSearch(this.query.value)
         event.currentTarget.reset()

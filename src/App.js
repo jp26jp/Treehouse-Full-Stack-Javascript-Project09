@@ -2,8 +2,8 @@ import React, {Component}             from "react"
 import {BrowserRouter, Route, Switch} from "react-router-dom"
 import Axios                          from "axios"
 import "./App.css"
-import Header                         from "./Header"
-import MainContent                    from "./MainContent"
+import Header                         from "./Components/Header"
+import MainContent                    from "./Components/MainContent"
 import config                         from "./config"
 
 export default class App extends Component {
@@ -52,7 +52,7 @@ export default class App extends Component {
                         ? <p>Loading...</p> :
                         <Switch>
                             <Route exact path="/" render={() => <MainContent data={this.state.photos} query={this.state.query}/>}/>
-                            <Route path="/:query" render={({match}) => {
+                            <Route path="/search/:query" render={({match}) => {
                                 this.performSearch(match.params.query)
                                 return <MainContent data={this.state.photos} query={this.state.query}/>
                             }}/>

@@ -4,7 +4,7 @@ import { NavLink } from "react-router-dom"
 
 const Category = props =>
     <li>
-        <NavLink to={props.label}>{props.label}</NavLink>
+        <NavLink to={"/search/" + props.label}>{props.label}</NavLink>
     </li>
 
 Category.propTypes = {
